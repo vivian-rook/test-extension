@@ -39,6 +39,7 @@ class PawsPublicLinkButton
       tooltip: 'PAWS public link',
       icon: pawsPublicLinkIcon,
       onClick: () => {
+        window.alert("Hello world!");
         const path = panel.context.path;
         const user = JupyterLab.defaultPaths.urls.hubUser;
         window.open(
