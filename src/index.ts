@@ -49,6 +49,7 @@ class PawsPublicLinkButton
       }
     });
     panel.toolbar.addItem('pawsPublicLink', button);
+    window.alert("Hello world4!");
     return button;
   }
 }
@@ -59,6 +60,7 @@ function activate(app: JupyterFrontEnd, factory: IFileBrowserFactory): void {
 
   commands.addCommand(CommandIDs.shareLink, {
     execute: () => {
+      window.alert("Hello world3!");
       const widget = tracker.currentWidget;
       if (!widget) {
         return;
@@ -68,6 +70,7 @@ function activate(app: JupyterFrontEnd, factory: IFileBrowserFactory): void {
         return;
       }
       const user = JupyterLab.defaultPaths.urls.hubUser;
+      window.alert("Hello world2!");
       Clipboard.copyToSystem(
         `https://public.paws.wmcloud.org/User:${user}/${path}`
       );
