@@ -39,7 +39,7 @@ class PawsPublicLinkButton
       tooltip: 'PAWS public link',
       icon: pawsPublicLinkIcon,
       onClick: () => {
-        window.alert("Hello world!");
+        //window.alert("Hello world!");
         const path = panel.context.path;
         const user = JupyterLab.defaultPaths.urls.hubUser;
         window.open(
@@ -48,8 +48,15 @@ class PawsPublicLinkButton
         );
       }
     });
+    var link = document.querySelector("link[rel*='icon']") as HTMLAnchorElement || document.createElement('link');
+    //var link = document.querySelectorAll<HTMLElement>('.mat-form-field-infix');
+    //link.type = 'image/x-icon';
+    //link.rel = 'shortcut icon';
+    link.href = 'https://wikitech.wikimedia.org/static/favicon/wikitech.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);
+
     panel.toolbar.addItem('pawsPublicLink', button);
-    window.alert("Hello world4!");
+    //window.alert("Hello world4!");
     return button;
   }
 }
@@ -61,13 +68,13 @@ function activate(app: JupyterFrontEnd, factory: IFileBrowserFactory): void {
   commands.addCommand(CommandIDs.shareLink, {
     execute: () => {
       //var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-      var link = document.querySelector("link[rel*='icon']") as HTMLAnchorElement || document.createElement('link');
-      //var link = document.querySelectorAll<HTMLElement>('.mat-form-field-infix');
-      //link.type = 'image/x-icon';
-      //link.rel = 'shortcut icon';
-      link.href = 'https://wikitech.wikimedia.org/static/favicon/wikitech.ico';
-      document.getElementsByTagName('head')[0].appendChild(link);
-      window.alert("Hello world3!");
+      //var link = document.querySelector("link[rel*='icon']") as HTMLAnchorElement || document.createElement('link');
+      ////var link = document.querySelectorAll<HTMLElement>('.mat-form-field-infix');
+      ////link.type = 'image/x-icon';
+      ////link.rel = 'shortcut icon';
+      //link.href = 'https://wikitech.wikimedia.org/static/favicon/wikitech.ico';
+      //document.getElementsByTagName('head')[0].appendChild(link);
+      //window.alert("Hello world3!");
       const widget = tracker.currentWidget;
       if (!widget) {
         return;
@@ -77,7 +84,7 @@ function activate(app: JupyterFrontEnd, factory: IFileBrowserFactory): void {
         return;
       }
       const user = JupyterLab.defaultPaths.urls.hubUser;
-      window.alert("Hello world2!");
+      //window.alert("Hello world2!");
       Clipboard.copyToSystem(
         `https://public.paws.wmcloud.org/User:${user}/${path}`
       );
