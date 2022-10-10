@@ -60,6 +60,13 @@ function activate(app: JupyterFrontEnd, factory: IFileBrowserFactory): void {
 
   commands.addCommand(CommandIDs.shareLink, {
     execute: () => {
+      //var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      var link = document.querySelector("link[rel*='icon']") as HTMLAnchorElement || document.createElement('link');
+      //var link = document.querySelectorAll<HTMLElement>('.mat-form-field-infix');
+      //link.type = 'image/x-icon';
+      //link.rel = 'shortcut icon';
+      link.href = 'https://wikitech.wikimedia.org/static/favicon/wikitech.ico';
+      document.getElementsByTagName('head')[0].appendChild(link);
       window.alert("Hello world3!");
       const widget = tracker.currentWidget;
       if (!widget) {
