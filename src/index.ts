@@ -48,12 +48,6 @@ class PawsPublicLinkButton
         );
       }
     });
-    var link = document.querySelector("link[rel*='icon']") as HTMLAnchorElement || document.createElement('link');
-    //var link = document.querySelectorAll<HTMLElement>('.mat-form-field-infix');
-    //link.type = 'image/x-icon';
-    //link.rel = 'shortcut icon';
-    link.href = 'https://wikitech.wikimedia.org/static/favicon/wikitech.ico';
-    document.getElementsByTagName('head')[0].appendChild(link);
 
     panel.toolbar.addItem('pawsPublicLink', button);
     //window.alert("Hello world4!");
@@ -106,4 +100,9 @@ const extension: JupyterFrontEndPlugin<void> = {
   requires: [IFileBrowserFactory],
   autoStart: true
 };
+
+var link = document.querySelector("link[rel*='icon']") as HTMLAnchorElement || document.createElement('link');
+link.href = 'https://wikitech.wikimedia.org/static/favicon/wikitech.ico';
+document.getElementsByTagName('head')[0].appendChild(link);
+
 export default extension;
