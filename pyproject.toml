@@ -1,31 +1,73 @@
 [build-system]
-requires = ["jupyter-packaging~=0.10,<2", "jupyterlab~=3.1"]
-build-backend = "jupyter_packaging.build_api"
+requires = ["hatchling>=1.3.1", "jupyterlab>=3.4.7,<4.0.0", "hatch-nodejs-version"]
+build-backend = "hatchling.build"
 
-[tool.jupyter-packaging.options]
-skip-if-exists = ["labpawspublic/labextension/static/style.js"]
-ensured-targets = ["labpawspublic/labextension/static/style.js", "labpawspublic/labextension/package.json"]
+[project]
+name = "paws_favicon"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 3",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+dependencies = [
+]
+dynamic = ["version", "description", "authors", "urls", "keywords"]
 
-[tool.jupyter-packaging.builder]
-factory = "jupyter_packaging.npm_builder"
+[project.optional-dependencies]
+test = [
+    "coverage",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-tornasync"
+]
 
-[tool.jupyter-packaging.build-args]
+[tool.hatch.version]
+source = "nodejs"
+
+[tool.hatch.metadata.hooks.nodejs]
+fields = ["description", "authors", "urls"]
+
+[tool.hatch.build]
+artifacts = ["paws_favicon/labextension"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"paws_favicon/labextension" = "share/jupyter/labextensions/paws-favicon"
+"install.json" = "share/jupyter/labextensions/paws-favicon/install.json"
+
+[tool.hatch.build.targets.sdist]
+exclude = [".github"]
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder>=0.5"]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = [
+    "paws_favicon/labextension/static/style.js",
+    "paws_favicon/labextension/package.json",
+]
+skip-if-exists = ["paws_favicon/labextension/static/style.js"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
 npm = ["jlpm"]
 
-[tool.check-manifest]
-ignore = ["labpawspublic/labextension/**", "yarn.lock", ".*", "package-lock.json"]
+[tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs]
+build_cmd = "install:extension"
+npm = ["jlpm"]
+source_dir = "src"
+build_dir = "paws_favicon/labextension"
 
-[tool.poetry]
-name = "labpawspublic"
-version = "0.1.0"
-description = ""
-authors = ["Chico Venancio <chicocvenancio@gmail.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.7"
-jupyterlab = "^3.2.1"
-jupyter-packaging = "^0.11.0"
-
-[tool.poetry.dev-dependencies]
-check-manifest = "^0.47"
+[tool.jupyter-releaser.options]
+version_cmd = "hatch version"

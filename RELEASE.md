@@ -1,4 +1,4 @@
-# Making a new release of labpawspublic
+# Making a new release of paws_favicon
 
 The extension can be published to `PyPI` and `npm` manually or using the [Jupyter Releaser](https://github.com/jupyter-server/jupyter_releaser).
 
@@ -12,10 +12,17 @@ packaging instructions in the `pyproject.toml` file to wrap your extension in a
 Python package. Before generating a package, we first need to install `build`.
 
 ```bash
-pip install build twine
+pip install build twine hatch
 ```
 
-To create a Python source package (``.tar.gz``) and the binary package (`.whl`) in the `dist/` directory, do:
+Bump the version using `hatch`. By default this will create a tag.
+See the docs on [hatch-nodejs-version](https://github.com/agoose77/hatch-nodejs-version#semver) for details.
+
+```bash
+hatch version <new-version>
+```
+
+To create a Python source package (`.tar.gz`) and the binary package (`.whl`) in the `dist/` directory, do:
 
 ```bash
 python -m build
